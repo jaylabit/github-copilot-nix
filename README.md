@@ -4,6 +4,15 @@ Always up-to-date Nix package for [GitHub Copilot CLI](https://github.com/github
 
 **Automatically updated hourly** to keep this flake close to the latest GitHub Copilot CLI release.
 
+## Acknowledgements
+
+This repository is based on the packaging approach from [sadjow/claude-code-nix](https://github.com/sadjow/claude-code-nix) by [@sadjow](https://github.com/sadjow).
+
+The same author also maintains related Nix package flakes:
+
+- [sadjow/gemini-cli-nix](https://github.com/sadjow/gemini-cli-nix)
+- [sadjow/codex-cli-nix](https://github.com/sadjow/codex-cli-nix)
+
 ## Why this package?
 
 ### Primary Goal: Always-Up-To-Date GitHub Copilot CLI for Nix Users
@@ -452,15 +461,6 @@ curl -fsSL https://gh.io/copilot-install | bash
 Choose the official installer if you want the simplest setup or do not use Nix.
 
 Choose this flake if you use NixOS or Home Manager, want declarative configuration, and are comfortable choosing between exact pins and faster-moving update channels.
-
-## Acknowledgements
-
-This repository is based on the packaging approach from [sadjow/claude-code-nix](https://github.com/sadjow/claude-code-nix) by [@sadjow](https://github.com/sadjow).
-
-The same author also maintains related Nix package flakes:
-
-- [sadjow/gemini-cli-nix](https://github.com/sadjow/gemini-cli-nix)
-- [sadjow/codex-cli-nix](https://github.com/sadjow/codex-cli-nix)
 
 ## License
 
