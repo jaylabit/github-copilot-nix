@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -48,6 +48,7 @@ jobs:
           git push origin "v${{ steps.version.outputs.version }}"
 
       - name: Update moving tags
+        if: steps.check-tag.outputs.exists == 'false'
         run: |
           VERSION="${{ steps.version.outputs.version }}"
           MAJOR="${{ steps.version.outputs.major }}"
@@ -67,6 +68,12 @@ jobs:
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "| Tag | Points To |" >> "$GITHUB_STEP_SUMMARY"
           echo "| --- | --- |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| v${{ steps.version.outputs.version }} | $(git rev-parse --short HEAD) |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| v${{ steps.version.outputs.major }} | v${{ steps.version.outputs.version }} |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| latest | v${{ steps.version.outputs.version }} |" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ steps.check-tag.outputs.exists }}" = "false" ]; then
+            echo "| v${{ steps.version.outputs.version }} | $(git rev-parse --short HEAD) |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| v${{ steps.version.outputs.major }} | v${{ steps.version.outputs.version }} |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| latest | v${{ steps.version.outputs.version }} |" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "| v${{ steps.version.outputs.version }} | unchanged (already existed) |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| v${{ steps.version.outputs.major }} | unchanged |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| latest | unchanged |" >> "$GITHUB_STEP_SUMMARY"
+          fi
