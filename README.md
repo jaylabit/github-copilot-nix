@@ -50,20 +50,20 @@ This repository provides:
 - **Pinned Release Artifacts**: `package.nix` fetches GitHub release tarballs with fixed hashes.
 - **Multi-Platform Support**: Linux and macOS, x86_64 and aarch64.
 - **Simple Update Script**: `scripts/update-version.sh` reads upstream `SHA256SUMS.txt` and updates `sources.json`.
-- **Version Tags**: Successful builds create `vX.Y.Z`, `vX`, and `latest` tags.
+- **Version Tags**: New packaged releases create `vX.Y.Z`, `vX`, and `latest` tags.
 
 ### Comparison Table
 
 | Feature | Official installer | nixpkgs upstream | This flake |
 | --- | --- | --- | --- |
-| **Latest Version** | Usually latest | Can lag | Hourly checks |
-| **Declarative Config** | No | Yes | Yes |
-| **Nix Store Package** | No | Yes | Yes |
-| **Version Pinning** | Manual | By nixpkgs revision | Exact tags or commit SHAs |
-| **Rollback** | Manual | Nix profile/system rollback | Nix profile/system rollback |
-| **Reproducible Fetches** | No | Yes | Yes |
-| **Update Frequency** | Immediate | Channel-dependent | Automated hourly check |
-| **Broad Review** | GitHub only | nixpkgs review | This repository |
+| Latest Version | ✅ Usually latest | ⚠️ Can lag | ✅ Hourly checks |
+| Declarative Config | ❌ No | ✅ Yes | ✅ Yes |
+| Nix Store Package | ❌ No | ✅ Yes | ✅ Yes |
+| Version Pinning | ⚠️ Manual | ✅ By nixpkgs revision | ✅ Exact tags or commit SHAs |
+| Rollback | ⚠️ Manual | ✅ Nix profile/system rollback | ✅ Nix profile/system rollback |
+| Reproducible Fetches | ❌ No | ✅ Yes | ✅ Yes |
+| Update Frequency | ✅ Immediate | ⚠️ Channel-dependent | ✅ Automated hourly check |
+| Broad Review | ✅ GitHub only | ✅ nixpkgs review | ✅ This repository |
 
 ## Quick Start
 
@@ -228,12 +228,12 @@ Only exact version tags such as `v1.0.40` or exact commit SHAs are true pins. `v
 
 ### Available Refs
 
-| Ref | Example | Behavior | Security Posture |
+| 📌 Ref | Example | Behavior | Security Posture |
 | --- | --- | --- | --- |
-| Exact version tag | `v1.0.40` | Immutable release tag | Best default for reproducible installs |
-| Major tag | `v1` | Latest release in that major line | Moving channel, updates over time |
-| `latest` tag | `latest` | Newest packaged release | Moving channel, updates over time |
-| Default branch | `github:jaylabit/github-copilot-nix` | Tracks repository `main` | Moving channel, fastest updates |
+| 🔒 Exact version tag | `v1.0.40` | Immutable release tag | Best default for reproducible installs |
+| 🧭 Major tag | `v1` | Latest release in that major line | Moving channel, updates over time |
+| 🚦 `latest` tag | `latest` | Newest packaged release | Moving channel, updates over time |
+| 🌿 Default branch | `github:jaylabit/github-copilot-nix` | Tracks repository `main` | Moving channel, fastest updates |
 
 ### Usage Examples
 
@@ -290,11 +290,11 @@ This repository is optimized for fast GitHub Copilot CLI updates. That makes the
 
 ### Recommended setups
 
-| Goal | Recommended Setup |
+| 🎯 Goal | Recommended Setup |
 | --- | --- |
-| Highest assurance | Pin an exact commit SHA and review updates manually |
-| Balanced default | Pin an exact version tag |
-| Fastest updates | Track the default branch, `v1`, or `latest` |
+| 🛡️ Highest assurance | Pin an exact commit SHA and review updates manually |
+| ⚖️ Balanced default | Pin an exact version tag |
+| ⚡ Fastest updates | Track the default branch, `v1`, or `latest` |
 
 ### Forking
 
@@ -353,7 +353,7 @@ This repository uses GitHub Actions to check for new GitHub Copilot CLI versions
 2. `sources.json` is updated with the new version and hashes for all supported platforms.
 3. `flake.lock` is updated.
 4. CI runs on Ubuntu and macOS.
-5. Version tags are created after successful builds (`vX.Y.Z`, `vX`, `latest`).
+5. Version tags are created only for newly packaged releases (`vX.Y.Z`, `vX`, `latest`).
 
 The automated update workflow runs:
 
@@ -439,15 +439,15 @@ curl -fsSL https://gh.io/copilot-install | bash
 
 #### Trade-offs
 
-| Aspect | Official Native Install | This Nix Flake |
+| ⚖️ Aspect | 🛠️ Official Native Install | 🚀 This Nix Flake |
 | --- | --- | --- |
-| **Simplicity** | One command | Requires Nix |
-| **Official binary** | Yes | Yes |
-| **Latest Version** | Usually latest | Hourly checks |
-| **Version Pinning** | Manual | Git tags / commit SHAs |
-| **Rollback** | Manual | Nix profile/system rollback |
-| **Declarative** | No | NixOS/Home Manager |
-| **Windows** | Native installer available | Use via WSL or unsupported directly |
+| 🎈 **Simplicity** | One command | Requires Nix |
+| ✅ **Official binary** | Yes | Yes |
+| ⚡ **Latest Version** | Usually latest | Hourly checks |
+| 📌 **Version Pinning** | Manual | Git tags / commit SHAs |
+| 🔙 **Rollback** | Manual | Nix profile/system rollback |
+| 🧾 **Declarative** | No | NixOS/Home Manager |
+| 🪟 **Windows** | Native installer available | Use via WSL or unsupported directly |
 
 Choose the official installer if you want the simplest setup or do not use Nix.
 
